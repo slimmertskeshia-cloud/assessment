@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Keshia's Portfolio Book</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            background: #111;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .book {
+            width: 95%;
+            max-width: 800px;
+            margin: 20px auto;
+            background: #222;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.7);
+            position: relative;
+            min-height: 450px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .controls {
+            text-align: center;
+            margin-top: 30px;
+            border-top: 1px solid #444;
+            padding-top: 20px;
+        }
+
+        button {
+            padding: 12px 25px;
+            margin: 5px;
+            background: #0d6efd;
+            border: none;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #0b5ed7;
+        }
+
+        button:disabled {
+            background: #444;
+            cursor: not-allowed;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #333;
+        }
+
+        a.project-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #0d6efd;
+            text-decoration: none;
+            font-weight: bold;
+            background: rgba(13, 110, 253, 0.1);
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+
+        a.project-link:hover {
+            background: rgba(13, 110, 253, 0.2);
+            text-decoration: underline;
+        }
+
+        .page-number {
+            text-align: right;
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="book">
+
+    <!-- PAGE 1 -->
+    <div class="page active">
+        <div class="page-number">Page 1</div>
+        <h1>Keshia's Portfolio</h1>
+        <p>Welcome to my interactive book portfolio.</p>
+        <p><strong>Location:</strong> Johannesburg, South Africa</p>
+        <p><strong>Email:</strong> slimmertskeshia@gmail.com</p>
+        <div style="margin-top: 20px; border: 1px dashed #444; padding: 15px;">
+            <small>Use the buttons below to flip through my projects.</small>
+        </div>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="page">
+        <h2>Guessing Game</h2>
+        <img src="assets/img/guessing-game.jpg" alt="Guessing Game">
+        <p>A simple number guessing game built with HTML, CSS and JavaScript.</p>
+        <a href="guessing game/index.html" class="project-link">Open Project</a>
+    </div>
+
+    <!-- PAGE 3 -->
+    <div class="page">
+        <div class="page-number">Page 3</div>
+        <h2>Shopping Cart</h2>
+        <img src="assets/img/shoppingcart.jpg" alt="Shopping Cart" onerror="this.src='https://via.placeholder.com/800x450?text=Shopping+Cart+Preview'">
+        <p>A functional shopping cart application built with HTML, CSS and JavaScript.</p>
+        <a href="shoppingcart/shopstart.html" class="project-link">Open Project</a>
+    </div>
+
+    <!-- PAGE 4 -->
+    <div class="page">
+        <div class="page-number">Page 4</div>
+        <h2>Wish List</h2>
+        <img src="assets/img/wish-list2 (1).jpg" alt="Wish List" onerror="this.src='https://via.placeholder.com/800x450?text=Wish+List+Preview'">
+        <p>A simple wish list application built with HTML, CSS and JavaScript.</p>
+        <a href="Chapter 13/homework.html" class="project-link">Open Project</a>
+    </div>
+
+    <!-- PAGE 5 -->
+    <div class="page">
+        <div class="page-number">Page 5</div>
+        <h2>Guessing Game (Chapter 16)</h2>
+        <img src="assets/img/guessing22 (1).jpg" alt="Guessing Game 2" onerror="this.src='https://via.placeholder.com/800x450?text=Guessing+Game+Preview'">
+        <p>Advanced version of my guessing game with improved logic and UI.</p>
+        <a href="CHAPTER 16/homework.html" class="project-link">Open Project</a>
+    </div>
+
+    <!-- PAGE 6 (Added Mercedes Page) -->
+    <div class="page">
+        <div class="page-number">Page 6</div>
+        <h2>Mercedes Landing Page</h2>
+        <img src="assets/img/merecedes website.png" alt="Mercedes Project" onerror="this.src='https://via.placeholder.com/800x450?text=Mercedes+Website+Preview'">
+        <p>Direct link to the hosted Mercedes Mercedes-Benz project on Netlify.</p>
+        <a href="https://keisha-mercedes-page.netlify.app/" target="_blank" class="project-link">Open Mercedes Website</a>
+    </div>
+
+    <div class="controls">
+        <button id="prevBtn" onclick="prevPage()">Previous</button>
+        <button id="nextBtn" onclick="nextPage()">Next</button>
+    </div>
+
+</div>
+
+<script>
+    let currentPage = 0;
+    const pages = document.querySelectorAll(".page");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    function updateButtons() {
+        prevBtn.disabled = currentPage === 0;
+        nextBtn.disabled = currentPage === pages.length - 1;
+    }
+
+    function showPage(index) {
+        pages.forEach(page => page.classList.remove("active"));
+        pages[index].classList.add("active");
+        updateButtons();
+    }
+
+    function nextPage() {
+        if (currentPage < pages.length - 1) {
+            currentPage++;
+            showPage(currentPage);
+        }
+    }
+
+    function prevPage() {
+        if (currentPage > 0) {
+            currentPage--;
+            showPage(currentPage);
+        }
+    }
+
+    // Initialize button state
+    updateButtons();
+</script>
+
+</body>
+</html>
